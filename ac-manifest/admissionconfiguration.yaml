@@ -1,24 +1,23 @@
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
-  namespace: bridgecrew
+  namespace: ac-workshop
   name: validating-webhook
 webhooks:
-  - name: validate.bridgecrew.svc
+  - name: validate.ac-workshop.svc
     failurePolicy: Fail
     sideEffects: None
     timeoutSeconds: 30
     admissionReviewVersions: ["v1","v1beta1"]
     namespaceSelector:
       matchExpressions:
-      - key: whorf.ignore
+      - key: ac-workshop.ignore
         operator: DoesNotExist    
     rules:
       - apiGroups: ["*"]
         resources:
           - "deployments"
           - "pods"
-          - "clusteroles"
           - "replicasets"
         apiVersions:
           - "*"
@@ -30,4 +29,4 @@ webhooks:
         name: validate
         namespace: bridgecrew
         path: /validate/
-      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUQvekNDQXVlZ0F3SUJBZ0lVQVg0dkZQY0ZUSGhMSXgzekVzbDVSbEdQS1dJd0RRWUpLb1pJaHZjTkFRRUwKQlFBd2ZURUxNQWtHQTFVRUJoTUNSMEl4RFRBTEJnTlZCQWdNQkU5dmJuUXhFVEFQQmdOVkJBY01DRWR5WVc1MAphR0Z0TVFzd0NRWURWUVFLREFKQ1F6RUxNQWtHQTFVRUN3d0NRa014RURBT0JnTlZCQU1NQjBkcFozVmxjbVV4CklEQWVCZ2txaGtpRzl3MEJDUUVXRVdWMWNtOW5hV2RBWjIxaGFXd3VZMjl0TUI0WERUSXlNRFF5TlRBNU16TTAKTjFvWERUSTFNREl4TWpBNU16TTBOMW93ZlRFTE1Ba0dBMVVFQmhNQ1IwSXhEVEFMQmdOVkJBZ01CRTl2Ym5ReApFVEFQQmdOVkJBY01DRWR5WVc1MGFHRnRNUXN3Q1FZRFZRUUtEQUpDUXpFTE1Ba0dBMVVFQ3d3Q1FrTXhFREFPCkJnTlZCQU1NQjBkcFozVmxjbVV4SURBZUJna3Foa2lHOXcwQkNRRVdFV1YxY205bmFXZEFaMjFoYVd3dVkyOXQKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFpaE03b0NmMkZCVFFGWENYQzAwTwpqQndoWm44WnF0UWNkWFdMZDAzNWJyMTZLN1lZdndvVkNvODhSNG1WK05jZllXMGdQTDFGby9QVE5iSmZpZHZ2ClpIR0J5NGp0QnVaZXVNTlF1c0xnVC9reldHT05YN08rL1hteWoxR1NuWmZjVmNlVW9OYzREbllWTUtnQXZ2QjgKcW5zK0FEMjlPTlVmN2JseGZIODVhM1VrbnFjRWxRN2E5ZkxlK3RuVEVCNXFPMEFCbzFvUnJJMDNJZUJISWZWTgozQWsrdFBsUkx3ZjFqMkVaQ1JSYVBDemovWjVib0lJK3dFMGs1U3hteTFiZGMySENXekdzNGZKTG83dkVFWnZYCko2ajFmNjRWQjA4VW5XWnQyTVd1L2p3M1k3eTFKNkdoeWZCWmN0Ukw0YVZzWFJtTmFlSXB4U3dkQS9HOXg4bC8KTlFJREFRQUJvM2N3ZFRBZEJnTlZIUTRFRmdRVWdTSFRLamZZbFBDQzA1MXFiZXRtNUlTRTZqSXdId1lEVlIwagpCQmd3Rm9BVWdTSFRLamZZbFBDQzA1MXFiZXRtNUlTRTZqSXdEd1lEVlIwVEFRSC9CQVV3QXdFQi96QWlCZ05WCkhSRUVHekFaZ2hkMllXeHBaR0YwWlM1aWNtbGtaMlZqY21WM0xuTjJZekFOQmdrcWhraUc5dzBCQVFzRkFBT0MKQVFFQUhnT2psOTJvS3Qrdytnd3RFdURhc1JEZnYwUDZKcnlETk9rYno3RTFUWEwrOXVIRGVKSEdwRTFXSTFEVQpzaVpseFRETVdRNjkzRTZ2WE94QzJYeFdUbUlWNEpQbXlHVHE3Rmd5VVVUYVdpSDRicXJHeTR5SjBsa1EyanIvCkwwcFlhbnQxR3VNU2xOeFVvQ016c1dmdUNHSVlEZEhVLzlsTjdqRWxwZ0tVZzVrR2JsenV6d1FUMVh5Ry9IUmgKMmIwempQc2tPTTlCZFhFd2JvYWRGWGtzei9EY3ZrdEtqaWw5NTFOZFFJRjN5NkNCOFc1SmI1Mk9IeURyNlJPTgovUG9mUmtkR0JFRGV5UHA5UHZXeVBLUTRsRkd2cEZoWVdaNmFxS05hUDB4T2oxcmI3TVZVUmxmb243MFRqMnpqCk9FcFBSaU1pbTMvdkJ4YXZvTUppK2d0Znh3PT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+      caBundle: 

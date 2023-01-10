@@ -60,7 +60,6 @@ spec:
         - name: certs-volume
           readOnly: true
           mountPath: "/certs"
-        imagePullPolicy: Always
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
