@@ -1,6 +1,1 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels: {"ac-workshop.ignore":"true"}
-  creationTimestamp: null
-  name: ac-workshop
+# Add namespace code here
