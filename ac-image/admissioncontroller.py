@@ -29,7 +29,7 @@ def validating_webhook():
 
 ### Set the variable called 'result' of the check to True if the object passes and False if we should BLOCK the object from becoming persistent
 
-    if result = True
+    if result == True:
 
         response = f"\nAC Workshop cleared object {object} as compliant with admission policy.\n"
         webhook.logger.info(f'Object {object} passed security checks. Allowing the request.')
