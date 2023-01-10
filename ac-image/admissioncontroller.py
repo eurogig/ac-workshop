@@ -18,12 +18,12 @@ def hello():
 def validating_webhook():
     request_info = request.get_json()
     uid = request_info["request"].get("uid")
-    object = f'{request_info["request"]["object"]["kind"]}/{request_info["request"]["object"]["metadata"]["name"]}
+    object = f'{request_info["request"]["object"]["kind"]}/{request_info["request"]["object"]["metadata"]["name"]}'
 
 ### Lets check the scheme of the object for something we can deny access on!  Perhaps check for privileged flag in the SecurityContext or using the 'latest" as an image tag
 
     # Set a default of everything is allowed
-    result = True
+    result = False
 # Your code goes here
 
 

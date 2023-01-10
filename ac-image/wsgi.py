@@ -1,4 +1,4 @@
-from whorf import webhook
+from admissioncontroller import webhook
 
 if __name__ == "__main__":
     webhook.run()

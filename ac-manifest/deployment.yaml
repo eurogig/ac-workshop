@@ -54,12 +54,11 @@ spec:
         ports:
         - containerPort: 8443
         volumeMounts:
-        - name: bridgecrew-secret
-          readOnly: true
-          mountPath: "/home/app/.bridgecrew"
         - name: certs-volume
           readOnly: true
           mountPath: "/certs"
+        - name: "tmp"
+          mountPath: "/tmp"
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
@@ -68,9 +67,8 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       volumes:
-      - name: bridgecrew-secret
-        secret:
-          secretName: bridgecrew-secret
       - name: certs-volume
         secret:
           secretName: admission-tls
+      - emptyDir: {}
+        name: tmp

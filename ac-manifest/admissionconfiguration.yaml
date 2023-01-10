@@ -27,6 +27,6 @@ webhooks:
     clientConfig:
       service:
         name: validate
-        namespace: bridgecrew
+        namespace: ac-workshop
         path: /validate/
       caBundle: 
