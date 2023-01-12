@@ -20,6 +20,10 @@ def validating_webhook():
     uid = request_info["request"].get("uid")
     object = f'{request_info["request"]["object"]["kind"]}/{request_info["request"]["object"]["metadata"]["name"]}'
 
+    # To see the requests and create rules to start we will save the request to a file.  We can delete this for prod
+    with open(uid, 'w') as file:
+        file.write(request_info)
+
 ### Lets check the scheme of the object for something we can deny access on!  Perhaps check for privileged flag in the SecurityContext or using the 'latest" as an image tag
 
     # Set a default of everything is allowed
