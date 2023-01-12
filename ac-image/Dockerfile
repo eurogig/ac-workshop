@@ -1,6 +1,6 @@
 FROM python:3.9.7-slim 
 
-RUN apt-get update -y && apt-get install -y python3-pip python-dev
+RUN apt-get update -y && apt-get install -y python3-pip 
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 RUN pip3 install -r /app/requirements.txt
@@ -8,7 +8,7 @@ COPY admissioncontroller.py /app
 COPY wsgi.py /app
 
 # create the app user
-RUN addgroup --gid 11000 app && adduser --uid 11000 --ingroup app app
+RUN addgroup --gid 11000 app && useradd --uid 11000 --gid app -d /app -m -s/bin/bash  -c ac-workshop,9876543210,securecon app 
 # chown all the files to the app user
 RUN chown -R app:app /app
 # change to the app user
