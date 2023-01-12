@@ -28,7 +28,7 @@ spec:
           capabilities:
             drop:
               - ALL
-        image: tty.sh/<YOUR UNIQUE ID>:2h
+        image: ttl.sh/<YOUR UNIQUE ID>:2h
         imagePullPolicy: Always
         resources:
           limits:
