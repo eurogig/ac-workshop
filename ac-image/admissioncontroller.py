@@ -10,34 +10,23 @@ webhook.logger.setLevel(logging.INFO)
 @webhook.route('/validate', methods=['POST'])
 def validating_webhook():
     request_info = request.get_json()
-    uid = request_info["request"].get("uid")
+    k8sobject = "K8s object"
 
-    # Extract the object Kind and Name for use in logging and responding
-    object = f'{request_info["request"]["object"]["kind"]}/{request_info["request"]["object"]["metadata"]["name"]}'
-
-    # Serializing json
-    request_json = json.dumps(request_info, indent=4)
-    # To see the requests and create rules to start we will save the request to a file.  We can delete this for prod
-    with open('/tmp/' + uid, 'w') as file:
-        file.write(request_json)
-
-    ####### Lets check the scheme of the object for something we can deny access on!  Perhaps check for privileged flag in the SecurityContext or using the 'latest" as an image tag
-
-    # Set a default of everything is blocked
-    result = False
-
-    ####### Your code goes here
+    ####### Lets check the scheme of the k8sobject for something we can deny access on!  Perhaps check for privileged flag in the SecurityContext or using the 'latest" as an image tag
 
 
-    # Set the variable called 'result' of the check to True if the object passes and False if we should BLOCK the object from becoming persistent
+    ####### End of your code
+
+    # Set the variable called 'result' of the check to True if the k8sobject passes and False if we should BLOCK the object from becoming persistent
+
     if result == True:
 
-        response = f"\nAC Workshop cleared object {object} as compliant with admission policy.\n"
-        webhook.logger.info(f'Object {object} passed security checks. Allowing the request.')
+        response = f"\nAC Workshop cleared object {k8sobject} as compliant with admission policy.\n"
+        webhook.logger.info(f'Object {k8sobject} passed security checks. Allowing the request.')
 
     else:
-        response = f"\nAC Workshop found the object {object} in violation of admission policy.\n"
-        webhook.logger.error(f'Object {object} failed security checks. Request rejected!')
+        response = f"\nAC Workshop found the object {k8sobject} in violation of admission policy.\n"
+        webhook.logger.error(f'Object {k8sobject} failed security checks. Request rejected!')
 
     return admission_response(result, uid, response)
 
