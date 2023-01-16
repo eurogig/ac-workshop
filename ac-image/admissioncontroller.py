@@ -1,40 +1,35 @@
 from flask import Flask, request, jsonify
-from os import environ, remove, getenv 
 import logging
 import json
-from datetime import datetime
 
 webhook = Flask(__name__)
-
 webhook.logger.setLevel(logging.INFO)
 
-# Simple route to make sure the admission controller is alive
-@webhook.route('/check', methods=['GET'])
-def hello():
-    return "<h1 style='color:blue'>Ready!</h1>"
 
-# Our validation route to receive the webhook request.  We'll use this in our Admission Controller K8s manifest
+# Our validation route to receive the webhook request.  We'll use this in our Admission Configuration K8s manifest
 @webhook.route('/validate', methods=['POST'])
 def validating_webhook():
     request_info = request.get_json()
     uid = request_info["request"].get("uid")
+
+    # Extract the object Kind and Name for use in logging and responding
     object = f'{request_info["request"]["object"]["kind"]}/{request_info["request"]["object"]["metadata"]["name"]}'
 
-    # To see the requests and create rules to start we will save the request to a file.  We can delete this for prod
     # Serializing json
     request_json = json.dumps(request_info, indent=4)
+    # To see the requests and create rules to start we will save the request to a file.  We can delete this for prod
     with open('/tmp/' + uid, 'w') as file:
         file.write(request_json)
 
-### Lets check the scheme of the object for something we can deny access on!  Perhaps check for privileged flag in the SecurityContext or using the 'latest" as an image tag
+    ####### Lets check the scheme of the object for something we can deny access on!  Perhaps check for privileged flag in the SecurityContext or using the 'latest" as an image tag
 
-    # Set a default of everything is allowed
+    # Set a default of everything is blocked
     result = False
-# Your code goes here
+
+    ####### Your code goes here
 
 
-### Set the variable called 'result' of the check to True if the object passes and False if we should BLOCK the object from becoming persistent
-
+    # Set the variable called 'result' of the check to True if the object passes and False if we should BLOCK the object from becoming persistent
     if result == True:
 
         response = f"\nAC Workshop cleared object {object} as compliant with admission policy.\n"
@@ -46,6 +41,7 @@ def validating_webhook():
 
     return admission_response(result, uid, response)
 
+# a simple function to format our response. Reference: https://kubernetes.io/docs/reference/config-api/apiserver-admission.v1/ 
 def admission_response(allowed, uid, message):
     return jsonify({"apiVersion": "admission.k8s.io/v1",
                     "kind": "AdmissionReview",
