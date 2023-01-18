@@ -12,6 +12,9 @@ def validating_webhook():
     request_info = request.get_json()
     k8sobject = "K8s object"
 
+    # Sneak preview into the schema.  The Unique ID for each request lives here
+    uid = request_info["request"].get("uid")
+
     ####### Lets check the scheme of the k8sobject for something we can deny access on!  Perhaps check for privileged flag in the SecurityContext or using the 'latest" as an image tag
     # Serializing json
     request_json = json.dumps(request_info, indent=4)
