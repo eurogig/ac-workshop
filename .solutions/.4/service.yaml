@@ -5,6 +5,7 @@ metadata:
   labels:
     app: validate
   name: validate
+  namespace: ac-workshop
 spec:
   ports:
   - name: 443-8443
