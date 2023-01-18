@@ -1,0 +1,32 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  namespace: ac-workshop
+  name: validating-webhook
+webhooks:
+  - name: validate.ac-workshop.svc
+    failurePolicy: Fail
+    sideEffects: None
+    timeoutSeconds: 30
+    admissionReviewVersions: ["v1","v1beta1"]
+    namespaceSelector:
+      matchExpressions:
+      - key: ac-workshop.ignore
+        operator: DoesNotExist    
+    rules:
+      - apiGroups: ["*"]
+        resources:
+          - "deployments"
+          - "pods"
+          - "replicasets"
+        apiVersions:
+          - "*"
+        operations:
+          - CREATE
+          - UPDATE
+    clientConfig:
+      service:
+        name: validate 
+        namespace: ac-workshop
+        path: /validate/
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUQ0akNDQXNxZ0F3SUJBZ0lKQUxLZFcyYmE1dTFLTUEwR0NTcUdTSWIzRFFFQkN3VUFNSUdiTVFzd0NRWUQKVlFRR0V3SlZVekVUTUJFR0ExVUVDQXdLVjJGemFHbHVaM1J2YmpFUU1BNEdBMVVFQnd3SFUyVmhkSFJzWlRFTgpNQXNHQTFVRUNnd0VRMDVEUmpFU01CQUdBMVVFQ3d3SlUyVmpkWEpsUTI5dU1TRXdId1lEVlFRRERCaDJZV3hwClpHRjBaUzVoWXkxM2IzSnJjMmh2Y0M1emRtTXhIekFkQmdrcWhraUc5dzBCQ1FFV0VIUmxiWEJBYm05MGFHbHUKWnk1amIyMHdIaGNOTWpNd01URTRNakV3TWpBNVdoY05NalV4TVRBM01qRXdNakE1V2pDQm16RUxNQWtHQTFVRQpCaE1DVlZNeEV6QVJCZ05WQkFnTUNsZGhjMmhwYm1kMGIyNHhFREFPQmdOVkJBY01CMU5sWVhSMGJHVXhEVEFMCkJnTlZCQW9NQkVOT1EwWXhFakFRQmdOVkJBc01DVk5sWTNWeVpVTnZiakVoTUI4R0ExVUVBd3dZZG1Gc2FXUmgKZEdVdVlXTXRkMjl5YTNOb2IzQXVjM1pqTVI4d0hRWUpLb1pJaHZjTkFRa0JGaEIwWlcxd1FHNXZkR2hwYm1jdQpZMjl0TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF5TmpOWlAxYjlBeHRmYytHClR0bFF0N2JkTVB3eGZtZFB3U2EzUENaTjltNUtwbkpmNHY4WDRDR24vQ0lJMHhwZjNZOVR0QmpFb1RyRE94ZGkKMnozRlRvQWZnWGdOM0x5QXBWTEEzU3dBMmcyYWhkNUI0a01UNjBVdldCSVlBaktVZk9BR2ViVThQV1FKWk1naQphODJUYWZ0aXpCWmd3QWQ4SGE3QnpYYVhIM0MxZHRqcWl5NkoyUm5XR2R0K1YvNzQ3amhzaTJYbUpuNVlMUnJiClFMSXJsc25jRkNtL3JQRERRdzZ3NGFmanozYXBkYXdYNW9laWxnTVQ4R0p0azNodzBjVVE5ck1kUEFQVXpjVmQKU2g0NlBQSE5VWFY0NkF3Vzh6c1BDc3BuaEpuMmowNHZUdmtnekg1TTVIYXlzSFJyRWNkYTRDSEh5MWV1WTRuNgovUkJhK3dJREFRQUJveWN3SlRBakJnTlZIUkVFSERBYWdoaDJZV3hwWkdGMFpTNWhZeTEzYjNKcmMyaHZjQzV6CmRtTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQmlVdUdNWWF1b1VDbklEVlNNQ280N0pXd2V6SmNvM2xLTlgKZGdadXhWMWtPODdpS0txZmRvNlV3cTZET0FubFpLeW50OC9hRXpNMmlWVGlxN0FkWFRMU042bzc3KzVhem4vaAplVzdYWTA2eitWaHc2ZndKVTU4WlJ6L2FFQnNjWGUvSEphaU9XaWlycWU5WHZqMXdIeFVobXBNcjlMdldZcmVICkhPL1FjUWVIZC9seXIrQUFDMUtuR1BEYUJpYk95ejY4SE0wK0FvdzZZZDQrMnhiNjV0Z1RIM0FGUVJmeGJkdWkKVmNPVTd0N0RSbUxHMWk0RURDRjJSek1FMDhlQm9CQnkyamwxSEErcVVaTlN5VFpZVXpCc1h5bWtPTS9SaysrawpFdTg2MEtSaHp2ZDdUR2gzSWlwS3VtU00vSHo5akJ0YkROVi9FMkZEU2FhL3J1WGtNSEk9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K

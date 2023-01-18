@@ -54,6 +54,9 @@ spec:
         ports:
         - containerPort: 8443
         volumeMounts:
+        - name: certs-volume
+          readOnly: true
+          mountPath: "/certs"
         - name: "tmp"
           mountPath: "/tmp"
       automountServiceAccountToken: false
@@ -64,5 +67,8 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       volumes:
+      - name: certs-volume
+        secret:
+          secretName: admission-tls
       - emptyDir: {}
         name: tmp
