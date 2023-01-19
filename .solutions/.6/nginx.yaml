@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx@sha256:4c1c50d0ffc614f90b93b07d778028dc765548e823f676fb027f61d281ac380d          
+        ports:
+        - containerPort: 80
+        imagePullPolicy: IfNotPresent
