@@ -17,8 +17,6 @@ webhooks:
       - apiGroups: ["*"]
         resources:
           - "deployments"
-          - "pods"
-          - "replicasets"
         apiVersions:
           - "*"
         operations:
